@@ -9,7 +9,7 @@ const uuid= require("uuid").v4;
 const Form = () => {
   const dispatch= useDispatch();
   const {comments}= useSelector((store)=>store.CommentReducer);
-  console.log(new NewComment("devn","this",0,0,[]),)
+  console.log(comments)
   const [input,setInput]= useState("");
   // const 
   const handleSubmit=(e)=>{

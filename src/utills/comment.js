@@ -1,31 +1,31 @@
-
 // id:
 // userName:"",
 // comment:"",
 // like:,
 // dislike:,
 // reply:
-export function NewComment(id,userName,comment,like,dislike,reply){
-        
-        const obj={id,userName,comment,like,dislike,reply};
-        return obj;
+export function NewComment(id, userName, comment, like, dislike, reply) {
+  const obj = { id, userName, comment, like, dislike, reply };
+  return obj;
 }
 
-export const findAndAdd=(id,data,state)=>{
-        console.log(id,data,state);
-        const arr=state
-        for(let i=0;i<arr.length;i++){
-             if(arr[i].id==id){
-                arr[i].reply.push(data);
-                return arr;
-             }
-             else{
-               state.reply= findAndAdd(id,data,arr[i].reply);
-             }
+export const findAndAdd = (id, data, comments) => {
+console.log(id,data,comments)
+        const cmnt= comments.map((el)=>{
+                return findData(el,id,data)
+        })
+        console.log(cmnt)
+        return cmnt;
+};
+
+const findData = (el,id,data) => {
+        if(el.id==id){
+                el.reply.push(data);
+                return el;
         }
-        return state;
-}
+             const replyData= el.reply.map((el)=>{
+                        return findData(el,id,data);
+                })
+        return {...el,reply:replyData};
 
-const findData=()=>{
-
-}
+};

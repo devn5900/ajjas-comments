@@ -16,7 +16,7 @@ const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
    dispatch(addReply(id,newComment));
   }
   return (
-    <Box border={"1px solid lightgray"} bg={"#FBEBD2"} p="1rem">
+    <Box border={"1px solid lightgray"}  p="1rem">
       <Flex gap="2" alignItems={"center"}>
         <Icon as={FaUserCircle} />
         <Text>{userName}</Text>
@@ -60,9 +60,8 @@ const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
             </Flex>
           </form>
         </Box>}
-        {reply&&reply.length>0&&reply.map((el,i)=>{
-            return <ShowComments key={i} {...el} />
-        })}
+        {reply&&reply.length>0&&<Box w={"50%"} pl={"0.5rem"}
+        bg={"#DBDBDB"}><ShowComments comments={reply} /></Box>}
       </Box>
     </Box>
   );
