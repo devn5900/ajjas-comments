@@ -27,7 +27,7 @@ const Form = () => {
               </Flex>
             </form>
         </Box>
-        <Box>
+        <Box w={"70%"} m="auto">
           <ShowComments comments={comments}/>
         </Box>
     </Flex>

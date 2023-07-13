@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import ShowComments from "./ShowComments";
 import { useDispatch } from "react-redux";
-import { addReply } from "../redux/comment/action";
+import { addReply, dislikeComment, likeComment } from "../redux/comment/action";
 import { NewComment } from "../utills/comment";
 const uuid= require("uuid").v4;
 const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
@@ -14,16 +14,24 @@ const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
     e.preventDefault();
     const newComment= new NewComment(uuid(),"Devesh Mishra",data,0,0,[])
    dispatch(addReply(id,newComment));
+   setToggle(false);
+  }
+  const handleLike=(id)=>{
+    console.log(id)
+    dispatch(likeComment(id));
+  }
+  const handleDisklike=(id)=>{
+    dispatch(dislikeComment(id))
   }
   return (
-    <Box border={"1px solid lightgray"}  p="1rem">
+    <Box   p="1rem">
       <Flex gap="2" alignItems={"center"}>
-        <Icon as={FaUserCircle} />
-        <Text>{userName}</Text>
+        <Icon fontSize={"1.5rem"} as={FaUserCircle} />
+        <Text fontSize={"md"} fontWeight={"bold"}>{userName}</Text>
       </Flex>
       <Box>
         <Flex>
-          <Text>{comment}</Text>
+          <Text fontSize={"1.3rem"}>{comment}</Text>
         </Flex>
         <Flex gap="2">
           <Text
@@ -31,10 +39,12 @@ const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
             fontSize={"0.8rem"}
             fontStyle={"oblique"}
             cursor={"pointer"}
+            onClick={()=>handleLike(id)}
           >
             Like {like}
           </Text>
           <Text
+            onClick={()=>handleDisklike(id)}
             color={"#116897"}
             fontSize={"0.8rem"}
             fontStyle={"oblique"}
@@ -60,7 +70,7 @@ const CommentChild = ({ id, userName, comment, like, dislike, reply }) => {
             </Flex>
           </form>
         </Box>}
-        {reply&&reply.length>0&&<Box w={"50%"} pl={"0.5rem"}
+        {reply&&reply.length>0&&<Box w={"90%"} 
         bg={"#DBDBDB"}><ShowComments comments={reply} /></Box>}
       </Box>
     </Box>
